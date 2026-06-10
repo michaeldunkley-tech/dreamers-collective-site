@@ -14,17 +14,11 @@ const sectionObserver = new IntersectionObserver(
 );
 sections.forEach((s) => sectionObserver.observe(s));
 
-// Vimeo lite
+// Vimeo lite — open in lightbox
 document.querySelectorAll('.vimeo-lite').forEach((el) => {
   el.addEventListener('click', function () {
     const id = this.dataset.vimeoId;
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${id}?autoplay=1&color=fbff80&title=0&byline=0&portrait=0`;
-    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
-    this.innerHTML = '';
-    this.appendChild(iframe);
-    this.style.cursor = 'default';
+    window.lbOpen(`<iframe src="https://player.vimeo.com/video/${id}?autoplay=1&color=fbff80&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen class="lb-vimeo"></iframe>`);
   });
 });
 
@@ -63,7 +57,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   const content  = lb.querySelector('.lb-content');
   const closeBtn = lb.querySelector('.lb-close');
 
-  function open(html) {
+  window.lbOpen = function open(html) {
     content.innerHTML = html;
     lb.classList.add('lb-open');
     document.body.style.overflow = 'hidden';
@@ -82,7 +76,7 @@ document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
   document.querySelectorAll('.result-card img').forEach((img) => {
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => {
-      open(`<img src="${img.src}" alt="${img.alt}" />`);
+      window.lbOpen(`<img src="${img.src}" alt="${img.alt}" />`);
     });
   });
 
