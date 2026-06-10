@@ -28,6 +28,21 @@ document.querySelectorAll('.vimeo-lite').forEach((el) => {
   });
 });
 
+// Testimony player
+const testimonyPlayer = document.getElementById('testimonyPlayer');
+if (testimonyPlayer) {
+  const video = document.getElementById('testimonyVideo');
+  const overlay = document.getElementById('testimonyOverlay');
+  function handleTestimonyClick() {
+    overlay.classList.add('hidden');
+    video.controls = true;
+    video.play();
+    testimonyPlayer.style.cursor = 'default';
+    testimonyPlayer.removeEventListener('click', handleTestimonyClick);
+  }
+  testimonyPlayer.addEventListener('click', handleTestimonyClick);
+}
+
 // Reveal on scroll
 const revealObserver = new IntersectionObserver(
   (entries) => entries.forEach((e) => {
