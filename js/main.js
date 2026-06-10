@@ -52,6 +52,50 @@ const revealObserver = new IntersectionObserver(
 );
 document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
 
+// Lightbox
+(function () {
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = '<div class="lb-backdrop"></div><button class="lb-close" aria-label="Close">&times;</button><div class="lb-content"></div>';
+  document.body.appendChild(lb);
+
+  const backdrop = lb.querySelector('.lb-backdrop');
+  const content  = lb.querySelector('.lb-content');
+  const closeBtn = lb.querySelector('.lb-close');
+
+  function open(html) {
+    content.innerHTML = html;
+    lb.classList.add('lb-open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('lb-open');
+    document.body.style.overflow = '';
+    setTimeout(() => { content.innerHTML = ''; }, 300);
+  }
+
+  backdrop.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // Result card images
+  document.querySelectorAll('.result-card img').forEach((img) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      open(`<img src="${img.src}" alt="${img.alt}" />`);
+    });
+  });
+
+  // Testimony video — fullscreen on double-click after playing
+  const testimonyVideo = document.getElementById('testimonyVideo');
+  if (testimonyVideo) {
+    testimonyVideo.addEventListener('dblclick', () => {
+      if (testimonyVideo.requestFullscreen) testimonyVideo.requestFullscreen();
+      else if (testimonyVideo.webkitRequestFullscreen) testimonyVideo.webkitRequestFullscreen();
+    });
+  }
+})();
+
 // Stagger grid reveals
 document.querySelectorAll('.results-grid .reveal, .work-grid .reveal, .process-steps .reveal').forEach((el, i) => {
   el.style.transitionDelay = `${i * 80}ms`;

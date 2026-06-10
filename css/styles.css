@@ -139,6 +139,14 @@ section:nth-child(even) { background: var(--surface); }
 .footer-col a:hover { color: var(--accent); }
 .footer-bottom { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .footer-copy { font-size: .72rem; color: var(--text-muted); }
+/* LIGHTBOX */
+#lightbox { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+#lightbox.lb-open { opacity: 1; pointer-events: all; }
+.lb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.92); }
+.lb-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: var(--text-muted); font-size: 2rem; cursor: pointer; z-index: 1; line-height: 1; transition: color .15s; font-family: var(--font-display); }
+.lb-close:hover { color: var(--accent); }
+.lb-content { position: relative; z-index: 1; max-width: 90vw; max-height: 90vh; display: flex; align-items: center; justify-content: center; }
+.lb-content img { max-width: 90vw; max-height: 90vh; border-radius: 8px; display: block; box-shadow: 0 16px 60px rgba(0,0,0,.8); }
 /* TESTIMONY */
 .testimony-wrap { margin-top: 3rem; }
 .testimony-player { position: relative; width: 100%; max-width: 860px; margin: 0 auto; border-radius: 12px; overflow: hidden; background: #000; border: 1px solid var(--border); box-shadow: 0 8px 40px rgba(0,0,0,.6); aspect-ratio: 16/9; cursor: pointer; }
